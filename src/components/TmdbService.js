@@ -25,4 +25,8 @@ export default class TmdbService {
     const baseUrl = 'https://image.tmdb.org/t/p/w500'
     return baseUrl + path
   }
+
+  searchMovie (query, page = 1) {
+    return this._request('search/movie', { query, page })
+  }
 }

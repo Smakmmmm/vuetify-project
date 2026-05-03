@@ -8,7 +8,7 @@
     </template>
 
     <v-text-field
-      v-model="search"
+      v-model="searchQuery"
       density="compact"
       flat
       hide-details
@@ -155,5 +155,7 @@
     { icon: 'mdi-account-group-outline', title: 'Users', value: 'users' },
   ]
 
-  const search = ref('')
+  const searchQuery = ref('')
+
+
 </script>
