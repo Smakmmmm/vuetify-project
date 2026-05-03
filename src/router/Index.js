@@ -1,10 +1,3 @@
-/**
- * router/Index.ts
- *
- * Manual routes for ./src/pages/*.vue
- */
-
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/pages/Index.vue'
 
@@ -16,6 +9,12 @@ const router = createRouter({
       name: 'home',
       component: Index,
     },
+    /*{
+      path: '/movie/:id',
+      name: 'movie-detail',
+      component: MovieDetail,
+      props: true,
+    },*/
   ],
 })
 

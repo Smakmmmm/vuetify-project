@@ -1,7 +1,7 @@
 <template>
-  <HelloWorld />
+  <the-movie-data-base />
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import TheMovieDataBase from '@/components/TheMovieDataBase.vue'
 </script>

@@ -1,6 +1,6 @@
 // Types
 import { createPinia } from 'pinia'
-import router from '../router'
+import router from '../router/Index.js'
 /**
  * plugins/Index.js
  *
