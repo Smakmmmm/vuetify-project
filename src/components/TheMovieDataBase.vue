@@ -134,7 +134,7 @@
   const page = ref(1)
   const totalPages = ref(1)
 
-  watch (page, async newPage => {
+  /* watch (page, async newPage => {
     try {
       const data = await service.getPopularMovies(newPage)
       movies.value = data.results
@@ -145,7 +145,7 @@
     } catch (error) {
       console.error('Ошибка загрузки:', error)
     }
-  }, { immediate: true })
+  }, { immediate: true }) */
 
   const drawer = ref(true)
   const rail = ref(true)
@@ -156,6 +156,27 @@
   ]
 
   const searchQuery = ref('')
+  let timer = null
 
+  async function loadMovies () {
+    try {
+      const data = await (searchQuery.value ? service.searchMovie(searchQuery.value, page.value) : service.getPopularMovies(page.value))
 
+      movies.value = data.results
+
+      totalPages.value = Math.min(data.total_pages, 500)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  watch(searchQuery, () => {
+    page.value = 1
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      loadMovies()
+    }, 500)
+  })
+
+  watch(page, loadMovies, { immediate: true })
 </script>
