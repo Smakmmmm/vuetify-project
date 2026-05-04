@@ -29,4 +29,6 @@ export default class TmdbService {
   searchMovie (query, page = 1) {
     return this._request('search/movie', { query, page })
   }
+
+  // getMovieDetails ()
 }
