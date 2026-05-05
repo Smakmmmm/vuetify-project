@@ -12,7 +12,7 @@ const router = createRouter({
       component: Index,
     },
     {
-      path: 'search/movie',
+      path: '/search/movie',
       name: 'search-movie',
       component: MovieSearch,
       props: true,

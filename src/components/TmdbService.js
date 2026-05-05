@@ -30,5 +30,8 @@ export default class TmdbService {
     return this._request('search/movie', { query, page })
   }
 
+  getMoviesGenres () {
+    return this._request('genre/movie/list')
+  }
   // getMovieDetails ()
 }

@@ -1,23 +1,5 @@
 <template>
-  <v-app-bar :elevation="5">
-    <v-app-bar-title>Application Bar,,,,</v-app-bar-title>
-
-    <template #append>
-      <v-btn icon="mdi-heart" />
-      <v-btn icon="mdi-dots-vertical" />
-    </template>
-
-    <v-text-field
-      v-model="searchQuery"
-      density="compact"
-      flat
-      hide-details
-      label="Search"
-      prepend-inner-icon="mdi-magnify"
-      single-line
-      variant="solo-filled"
-    />
-  </v-app-bar>
+  <HomeAppBar v-model:search-text="searchQuery" />
 
   <v-card>
     <v-layout>
@@ -92,6 +74,10 @@
                   Дата выхода: {{ movie.release_date }}
                 </v-card-subtitle>
 
+                <v-card-subtitle>
+                  Жанры: {{ getGenre(movie.genre_ids) }}
+                </v-card-subtitle>
+
                 <v-card-actions>
                   <v-btn
                     color="primary"
@@ -126,26 +112,37 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
+  import HomeAppBar from '@/components/HomeAppBar.vue'
   import TmdbService from '@/components/TmdbService.js'
 
+  /** @type {import('vue').Ref<Object<number, string>>} */
+  const genresMap = ref({})
   const service = new TmdbService()
   const movies = ref([])
   const page = ref(1)
   const totalPages = ref(1)
 
-  /* watch (page, async newPage => {
-    try {
-      const data = await service.getPopularMovies(newPage)
-      movies.value = data.results
+  onMounted(async () => {
+    const data = await service.getMoviesGenres()
 
-      totalPages.value = Math.min(data.total_pages, 500)
-
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } catch (error) {
-      console.error('Ошибка загрузки:', error)
+    if (data && data.genres) {
+      for (const g of data.genres) {
+        genresMap.value[g.id] = g.name
+      }
     }
-  }, { immediate: true }) */
+  })
+
+  function getGenre (ids) {
+    if (!ids || ids.length === 0) {
+      return 'Неизвестно'
+    }
+
+    return ids
+      .map(id => genresMap.value[id])
+      .filter(Boolean)
+      .join(', ')
+  }
 
   const drawer = ref(true)
   const rail = ref(true)
