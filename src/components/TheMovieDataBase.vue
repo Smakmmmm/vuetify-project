@@ -1,52 +1,10 @@
 <template>
   <HomeAppBar v-model:search-text="searchQuery" />
-
+  <!--TODO разделить популярные филмы и поиск
+  TODO то есть популярные будут по: /, а поисковые по /search-->
   <v-card>
     <v-layout>
-      <v-navigation-drawer
-        v-model="drawer"
-        color="indigo"
-        permanent
-        :rail="rail"
-        :rail-width="80"
-        @click="rail = false"
-      >
-        <v-list>
-          <v-list-item
-            prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-            title="User"
-          >
-            <template #prepend>
-              <v-avatar
-                class="mx-1"
-                size="40"
-              />
-            </template>
-
-            <template #append>
-              <v-btn
-                icon="mdi-chevron-left"
-                :inert="rail"
-                variant="text"
-                @click.stop="rail = !rail"
-              />
-            </template>
-          </v-list-item>
-        </v-list>
-
-        <v-divider />
-
-        <v-list density="compact" nav>
-          <v-list-item
-            v-for="item in items"
-            :key="item.value"
-            class="pl-5"
-            :prepend-icon="item.icon"
-            :title="item.title"
-            :value="item.value"
-          />
-        </v-list>
-      </v-navigation-drawer>
+      <NavigationDrawer />
 
       <v-main class="fill-height">
         <v-container>
@@ -59,7 +17,7 @@
               md="4"
               sm="6"
             >
-              <v-card class="mx-auto">
+              <!--<v-card class="mx-auto">
                 <v-img
                   cover
                   height="400px"
@@ -93,7 +51,7 @@
                     {{ movie.vote_average.toFixed(1) }}
                   </v-chip>
                 </v-card-actions>
-              </v-card>
+              </v-card>-->
             </v-col>
           </v-row>
         </v-container>
@@ -101,19 +59,20 @@
     </v-layout>
   </v-card>
 
-  <div class="text-center">
+  <!--<div class="text-center">
     <v-pagination
       v-model="page"
       :length="totalPages"
       rounded="circle"
       :total-visible="7"
     />
-  </div>
+  </div>-->
 </template>
 
 <script setup>
   import { onMounted, ref, watch } from 'vue'
   import HomeAppBar from '@/components/HomeAppBar.vue'
+  import NavigationDrawer from '@/components/NavigationDrawer.vue'
   import TmdbService from '@/components/TmdbService.js'
 
   /** @type {import('vue').Ref<Object<number, string>>} */
@@ -143,14 +102,6 @@
       .filter(Boolean)
       .join(', ')
   }
-
-  const drawer = ref(true)
-  const rail = ref(true)
-  const items = [
-    { icon: 'mdi-home-city', title: 'Home', value: 'home' },
-    { icon: 'mdi-account', title: 'My Account', value: 'account' },
-    { icon: 'mdi-account-group-outline', title: 'Users', value: 'users' },
-  ]
 
   const searchQuery = ref('')
   let timer = null

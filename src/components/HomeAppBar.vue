@@ -5,7 +5,7 @@
 
 <template>
   <v-app-bar :elevation="5">
-    <v-app-bar-title>Application Bar,,,,</v-app-bar-title>
+    <v-app-bar-title>VIDEOSOS</v-app-bar-title>
 
     <template #append>
       <v-btn icon="mdi-heart" />
