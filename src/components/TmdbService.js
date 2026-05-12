@@ -18,14 +18,6 @@ export default class TmdbService {
     return this._request('movie/popular', { page })
   }
 
-  getImageUrl (path) {
-    if (!path) {
-      return 'null'
-    }
-    const baseUrl = 'https://image.tmdb.org/t/p/w500'
-    return baseUrl + path
-  }
-
   searchMovie (query, page = 1) {
     return this._request('search/movie', { query, page })
   }
@@ -34,4 +26,5 @@ export default class TmdbService {
     return this._request('genre/movie/list')
   }
   // getMovieDetails ()
+  // TODO разобраться какие методы писать сюда, а какие в utils
 }

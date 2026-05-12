@@ -1,5 +1,5 @@
 <script setup>
-  import { getImageUrl } from '../TmdbService.js'
+  import { getImageUrl } from '@/utils/tmdb.js'
 
   defineProps({
     movie: {
@@ -7,7 +7,7 @@
       required: true,
     },
     genres: {
-      type: Map,
+      type: String,
       required: true,
     },
   })
@@ -18,7 +18,7 @@
     <v-img
       cover
       height="400px"
-      :src="service.getImageUrl(movie.poster_path)"
+      :src="getImageUrl(movie.poster_path)"
     />
 
     <v-card-title>
@@ -30,7 +30,7 @@
     </v-card-subtitle>
 
     <v-card-subtitle>
-      Жанры: {{ getGenre(movie.genre_ids) }}
+      Жанры: {{ genres }}
     </v-card-subtitle>
 
     <v-card-actions>
@@ -45,7 +45,7 @@
       <v-spacer />
 
       <v-chip color="orange" size="small">
-        {{ movie.vote_average.toFixed(1) }}
+        {{ Number(movie.vote_average).toFixed(1) }}
       </v-chip>
     </v-card-actions>
   </v-card>
