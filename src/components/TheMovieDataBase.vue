@@ -25,7 +25,7 @@
   import MoviesGrid from '@/components/movies/MoviesGrid.vue'
   import MoviesPagination from '@/components/movies/MoviesPagination.vue'
   import NavigationDrawer from '@/components/NavigationDrawer.vue'
-  import TmdbService from '@/components/TmdbService.js'
+  import TmdbService from '@/services/tmdbService.js'
 
   /** @type {import('vue').Ref<Object<number, string>>} */
   const genresMap = ref({})

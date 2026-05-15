@@ -25,9 +25,9 @@
   import MoviesGrid from '@/components/movies/MoviesGrid.vue'
   import MoviesPagination from '@/components/movies/MoviesPagination.vue'
   import NavigationDrawer from '@/components/NavigationDrawer.vue'
-  import TmdbService from '@/components/TmdbService.js'
   import { useMovies } from '@/composables/useMovies.js'
-  import router from '@/router/Index.js'
+  import router from '@/router/index.js'
+  import TmdbService from '@/services/tmdbService.js'
 
   const searchQuery = ref('')
 

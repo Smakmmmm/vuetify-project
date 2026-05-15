@@ -1,7 +1,7 @@
 import { onMounted, ref, watch } from 'vue'
-import TmdbService from '@/components/TmdbService.js'
+import TmdbService from '@/services/tmdbService.js'
 
-export function useMovies (loader) {
+export function useMovies (loader, dependency) {
   const service = new TmdbService()
   /** @type {import('vue').Ref<Object<number, string>>} */
   const genresMap = ref({})
@@ -32,6 +32,23 @@ export function useMovies (loader) {
   }
 
   watch(page, loadMovies, { immediate: true })
+
+  let timer = null
+
+  if (dependency) {
+    watch(dependency, async () => {
+      clearTimeout(timer)
+
+      timer = setTimeout(() => {
+        if (page.value !== 1) {
+          page.value = 1
+          return
+        }
+
+        loadMovies()
+      }, 500)
+    })
+  }
 
   return {
     movies,
