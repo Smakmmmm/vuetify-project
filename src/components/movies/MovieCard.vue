@@ -18,7 +18,7 @@
     <v-img
       cover
       height="400px"
-      :src="getImageUrl(movie.poster_path)"
+      :src="getImageUrl(movie.poster_path, 'w500')"
     />
 
     <v-card-title>

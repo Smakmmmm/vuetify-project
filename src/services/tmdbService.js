@@ -25,6 +25,13 @@ export default class TmdbService {
   getMoviesGenres () {
     return this._request('genre/movie/list')
   }
-  // getMovieDetails ()
+
+  async getMovieDetails (id) {
+    return await this._request(`/movie/${id}`)
+  }
+
+  async getMovieRecommendations (id) {
+    return await this._request(`/movies/${id}/recommendations`)
+  }
   // TODO разобраться какие методы писать сюда, а какие в utils
 }
