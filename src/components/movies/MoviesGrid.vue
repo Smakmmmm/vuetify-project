@@ -1,7 +1,8 @@
 <script setup>
+  import { getGenres } from '@/utils/genres.js'
   import MovieCard from './MovieCard.vue'
 
-  const props = defineProps({
+  defineProps({
     movies: {
       type: Array,
       required: true,
@@ -11,17 +12,6 @@
       required: true,
     },
   })
-
-  function getGenre (ids) {
-    if (!ids || ids.length === 0) {
-      return 'Неизвестно'
-    }
-
-    return ids
-      .map(id => props.genresMap[id])
-      .filter(Boolean)
-      .join(', ')
-  }
 </script>
 
 <template>
@@ -38,7 +28,7 @@
         >
 
           <MovieCard
-            :genres="getGenre(movie.genre_ids)"
+            :genres="getGenres(movie.genre_ids, genresMap)"
             :movie="movie"
           />
         </v-col>

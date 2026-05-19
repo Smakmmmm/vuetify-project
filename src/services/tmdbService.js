@@ -31,7 +31,7 @@ export default class TmdbService {
   }
 
   async getMovieRecommendations (id) {
-    return await this._request(`/movies/${id}/recommendations`)
+    return await this._request(`/movie/${id}/recommendations`)
   }
   // TODO разобраться какие методы писать сюда, а какие в utils
 }

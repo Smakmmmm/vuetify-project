@@ -6,7 +6,6 @@
       <NavigationDrawer />
 
       <div class="w-100">
-
         <v-img
           v-if="movie?.backdrop_path"
           class="mb-6 rounded-lg"
@@ -73,6 +72,14 @@
             </v-col>
           </v-row>
         </v-container>
+
+        <div class="px-15">
+          <MovieRecommendations
+            class="mt-6 mb-10"
+            :genres-map="genresMap"
+            :movie-id="movieId"
+          />
+        </div>
       </div>
     </v-layout>
   </v-card>
@@ -82,13 +89,15 @@
   import { onMounted, ref } from 'vue'
   import { useRoute } from 'vue-router'
   import HomeAppBar from '@/components/HomeAppBar.vue'
+  import MovieRecommendations from '@/components/movies/MovieRecommendations.vue'
   import NavigationDrawer from '@/components/NavigationDrawer.vue'
+  import { useGenres } from '@/composables/useGenres.js'
   import tmdbService from '@/services/tmdbService.js'
   import { getImageUrl } from '@/utils/tmdb.js'
 
   const route = useRoute()
 
-  const movieId = route.params.id
+  const movieId = String(route.params.id)
 
   const movie = ref(null)
 
@@ -97,4 +106,6 @@
   onMounted(async () => {
     movie.value = await service.getMovieDetails(movieId)
   })
+
+  const { genresMap } = useGenres()
 </script>

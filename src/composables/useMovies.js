@@ -1,19 +1,9 @@
-import { onMounted, ref, watch } from 'vue'
-import TmdbService from '@/services/tmdbService.js'
+import { ref, watch } from 'vue'
+import { useGenres } from './useGenres.js'
 
 export function useMovies (loader, dependency) {
-  const service = new TmdbService()
   /** @type {import('vue').Ref<Object<number, string>>} */
-  const genresMap = ref({})
-
-  onMounted(async () => {
-    const data = await service.getMoviesGenres()
-    if (data && data.genres) {
-      for (const genre of data.genres) {
-        genresMap.value[genre.id] = genre.name
-      }
-    }
-  })
+  const { genresMap } = useGenres()
 
   const movies = ref([])
   const page = ref(1)
