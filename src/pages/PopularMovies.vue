@@ -1,10 +1,6 @@
 <template>
-  <HomeAppBar v-model:search-text="searchQuery" />
-
   <v-card>
     <v-layout>
-      <NavigationDrawer />
-
       <MoviesGrid
         :genres-map="genresMap"
         :movies="movies"
@@ -21,10 +17,8 @@
 
 <script setup>
   import { ref, watch } from 'vue'
-  import HomeAppBar from '@/components/HomeAppBar.vue'
   import MoviesGrid from '@/components/movies/MoviesGrid.vue'
   import MoviesPagination from '@/components/movies/MoviesPagination.vue'
-  import NavigationDrawer from '@/components/NavigationDrawer.vue'
   import { useMovies } from '@/composables/useMovies.js'
   import router from '@/router/index.js'
   import TmdbService from '@/services/tmdbService.js'

@@ -1,6 +1,26 @@
 <script setup>
-  defineProps(['searchText'])
-  defineEmits(['update:searchText'])
+  import { computed } from 'vue'
+  import { useRoute } from 'vue-router'
+  import router from '@/router'
+
+  const route = useRoute()
+
+  const searchQuery = computed({
+    get: () => route.query.query || '',
+    set: value => {
+      if (!value.trim()) {
+        router.push('/')
+        return
+      }
+
+      router.replace({
+        path: '/search/movie',
+        query: {
+          query: value,
+        },
+      })
+    },
+  })
 </script>
 
 <template>
@@ -14,14 +34,13 @@
 
     <!-- TODO Сделать поле поиска закругленным. Мб еще поработать со стилями!! -->
     <v-text-field
+      v-model="searchQuery"
       flat
       hide-details
       label="Search"
-      :model-value="searchText"
       prepend-inner-icon="mdi-magnify"
       single-line
       variant="solo-filled"
-      @update:model-value="$emit('update:searchText', $event)"
     />
   </v-app-bar>
 </template>

@@ -1,10 +1,6 @@
 <template>
-  <HomeAppBar v-model:search-text="searchQuery" />
-
   <v-card>
     <v-layout>
-      <NavigationDrawer />
-
       <div class="w-100">
         <v-img
           v-if="movie?.backdrop_path"
@@ -88,9 +84,7 @@
 <script setup>
   import { onMounted, ref } from 'vue'
   import { useRoute } from 'vue-router'
-  import HomeAppBar from '@/components/HomeAppBar.vue'
   import MovieRecommendations from '@/components/movies/MovieRecommendations.vue'
-  import NavigationDrawer from '@/components/NavigationDrawer.vue'
   import { useGenres } from '@/composables/useGenres.js'
   import tmdbService from '@/services/tmdbService.js'
   import { getImageUrl } from '@/utils/tmdb.js'

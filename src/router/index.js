@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import MainLayout from '@/components/MainLayout.vue'
 import MovieDetails from '@/pages/MovieDetails.vue'
 import MovieSearch from '@/pages/MovieSearch.vue'
 import PopularMovies from '@/pages/PopularMovies.vue'
@@ -8,20 +9,27 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: PopularMovies,
-    },
-    {
-      path: '/search/movie',
-      name: 'search-movie',
-      component: MovieSearch,
-      props: true,
-    },
-    {
-      path: '/movie/:id',
-      name: 'movie-detail',
-      component: MovieDetails,
-      props: true,
+      name: 'main-layout',
+      component: MainLayout,
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: PopularMovies,
+        },
+        {
+          path: 'search/movie',
+          name: 'search-movie',
+          component: MovieSearch,
+          props: true,
+        },
+        {
+          path: 'movie/:id',
+          name: 'movie-detail',
+          component: MovieDetails,
+          props: true,
+        },
+      ],
     },
   ],
 })
