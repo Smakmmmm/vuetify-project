@@ -65,6 +65,20 @@
               <v-card-subtitle>
                 Time {{ movie.runtime }} minutes
               </v-card-subtitle>
+
+              <v-card-subtitle
+                class="mt-10"
+              >
+                <v-btn
+                  @click="
+                    favoritesStore.isFavorite(movie.id)
+                      ? favoritesStore.removeFavorite(movie.id)
+                      : favoritesStore.addFavorite(movie)
+                  "
+                >
+                  Добавить в избранное
+                </v-btn>
+              </v-card-subtitle>
             </v-col>
           </v-row>
         </v-container>
@@ -87,6 +101,7 @@
   import MovieRecommendations from '@/components/movies/MovieRecommendations.vue'
   import { useGenres } from '@/composables/useGenres.js'
   import tmdbService from '@/services/tmdbService.js'
+  import { useFavoriteMoviesStore } from '@/stores/favoriteMoviesStore.js'
   import { getImageUrl } from '@/utils/tmdb.js'
 
   const route = useRoute()
@@ -102,4 +117,6 @@
   })
 
   const { genresMap } = useGenres()
+
+  const favoritesStore = useFavoriteMoviesStore()
 </script>

@@ -27,6 +27,8 @@
   <v-app-bar :elevation="5">
     <v-app-bar-title>VIDEOSOS</v-app-bar-title>
 
+    <v-btn />
+
     <template #append>
       <v-btn icon="mdi-heart" />
       <v-btn icon="mdi-dots-vertical" />
