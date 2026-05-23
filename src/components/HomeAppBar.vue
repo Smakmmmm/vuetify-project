@@ -30,7 +30,11 @@
     <v-btn />
 
     <template #append>
-      <v-btn icon="mdi-heart" />
+      <v-btn
+        icon="mdi-heart"
+        @click="router.push('/movie/favorites')"
+      />
+
       <v-btn icon="mdi-dots-vertical" />
     </template>
 

@@ -70,20 +70,26 @@
                 class="mt-10"
               >
                 <v-btn
-                  @click="
-                    favoritesStore.isFavorite(movie.id)
-                      ? favoritesStore.removeFavorite(movie.id)
-                      : favoritesStore.addFavorite(movie)
-                  "
+                  icon
+                  @click="toggleFavorite"
                 >
-                  Добавить в избранное
+                  <v-icon :color="isFavorite ? 'red' : undefined">
+                    {{
+                      isFavorite
+                        ? 'mdi-heart'
+                        : 'mdi-heart-outline'
+                    }}
+                    Добавить в избранное
+                  </v-icon>
                 </v-btn>
               </v-card-subtitle>
             </v-col>
           </v-row>
         </v-container>
 
-        <div class="px-15">
+        <div
+          class="px-15"
+        >
           <MovieRecommendations
             class="mt-6 mb-10"
             :genres-map="genresMap"
@@ -96,7 +102,7 @@
 </template>
 
 <script setup>
-  import { onMounted, ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { useRoute } from 'vue-router'
   import MovieRecommendations from '@/components/movies/MovieRecommendations.vue'
   import { useGenres } from '@/composables/useGenres.js'
@@ -119,4 +125,15 @@
   const { genresMap } = useGenres()
 
   const favoritesStore = useFavoriteMoviesStore()
+
+  const isFavorite = computed(() => favoritesStore.isFavorite(movie.value.id))
+
+  function toggleFavorite () {
+    if (isFavorite.value) {
+      favoritesStore.removeFavorite(movie.value.id)
+      return
+    }
+
+    favoritesStore.addFavorite(movie.value)
+  }
 </script>
